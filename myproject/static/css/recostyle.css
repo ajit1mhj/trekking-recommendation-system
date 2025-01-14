@@ -1,0 +1,139 @@
+/* General styles */
+
+
+/* Form styles */
+form {
+    max-width: 600px;
+    margin: 0 auto 40px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin: 10px 0 5px;
+    color: #34495e;
+    font-weight: bold;
+}
+
+input[type="number"],
+select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #2980b9;
+}
+
+/* Results section */
+.results {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.destination {
+    background-color: white;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Popular Treks Section */
+.popular-treks {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.popular-treks h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 30px;
+}
+
+.trek-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 20px;
+}
+
+.trek-card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.trek-card:hover {
+    transform: translateY(-5px);
+}
+
+.trek-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.trek-info {
+    padding: 15px;
+}
+
+.trek-info h3 {
+    margin: 0 0 10px 0;
+    color: #2c3e50;
+}
+
+.trek-info p {
+    margin: 5px 0;
+    color: #666;
+}
+
+.trek-info button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+.trek-info button:hover {
+    background-color: #2980b9;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .trek-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    form {
+        padding: 15px;
+        margin: 0 15px 30px;
+    }
+}

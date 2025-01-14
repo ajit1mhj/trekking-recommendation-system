@@ -1,3 +1,4 @@
+
 * {
     margin: 0;
     padding: 0;
@@ -61,7 +62,7 @@ nav {
 .hero {
     height: 100vh;
     background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
-                url('https://source.unsplash.com/1600x900/?mountain,trek') no-repeat center center;
+                url('../images/hero.jpg') no-repeat center center;
     background-size: cover;
     display: flex;
     align-items: center;

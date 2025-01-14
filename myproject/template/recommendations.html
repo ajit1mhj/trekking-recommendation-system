@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+    <h1>Destination Recommendation System</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="cost">Cost:</label>
+        <input type="number" name="cost" step="0.01" required>
+        <label for="time">Time (in days):</label>
+        <input type="number" name="time" required>
+        <label for="difficulty">Difficulty:</label>
+        <select name="difficulty" required>
+            <option value="easy">Easy</option>
+            <option value="moderate">Moderate</option>
+            <option value="hard">Hard</option>
+        </select>
+        <button type="submit">Get Recommendations</button>
+    </form>
+
+    {% if recommendations %}
+    <div class="results">
+        <h2>Recommended Destinations</h2>
+        {% for destination in recommendations %}
+        <div class="destination">
+            <strong>{{ destination.Trek }}</strong><br>
+            Cost: {{ destination.Cost }}<br>
+            Time: {{ destination.Time }} days<br>
+            Difficulty: {{ destination.Difficulty }}<br>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="results">
+        <p>No recommendations yet. Fill out the form to see suggestions!</p>
+    </div>
+    {% endif %}
+
+
+     <!-- Popular Treks Section -->
+     <section class="popular-treks">
+        <h2>Popular Treks</h2>
+        <div class="trek-grid">
+            <div class="trek-card">
+                <img src="https://source.unsplash.com/800x600/?himalaya" alt="Trek 1">
+                <div class="trek-info">
+                    <h3>Everest Base Camp</h3>
+                    <p>Difficulty: Challenging</p>
+                    <p>Duration: 12 days</p>
+                    <button>Learn More</button>
+                </div>
+            </div>
+            <div class="trek-card">
+                <img src="https://source.unsplash.com/800x600/?mountains" alt="Trek 2">
+                <div class="trek-info">
+                    <h3>Annapurna Circuit</h3>
+                    <p>Difficulty: Moderate</p>
+                    <p>Duration: 15 days</p>
+                    <button>Learn More</button>
+                </div>
+            </div>
+            <div class="trek-card">
+                <img src="https://source.unsplash.com/800x600/?trek" alt="Trek 3">
+                <div class="trek-info">
+                    <h3>Manaslu Circuit</h3>
+                    <p>Difficulty: Challenging</p>
+                    <p>Duration: 14 days</p>
+                    <button>Learn More</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+{% endblock %}

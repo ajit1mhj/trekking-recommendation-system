@@ -1,36 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TrekGuide - Find Your Perfect Trail</title>
-    <link rel="stylesheet" href="../static/css/style2.css">
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body>
-    <!-- Navigation Bar -->
-    <nav>
-        <div class="nav-container">
-            <div class="logo">
-                <i class="fas fa-mountain"></i>
-                <span>TrekGuide</span>
-            </div>
-            <div class="nav-links">
-                <a href="#" class="active">Home</a>
-                <a href="#">Treks</a>
-                <a href="#">Destinations</a>
-                <a href="#">About</a>
-                <a href="#">Contact</a>
-                <a href="login">
-                    <button class="login-btn">Login</button>
-                </a>
-            </div>
-        </div>
-    </nav>
+{% extends "base.html" %}
+{% block content %}
+
 
     <!-- Hero Section -->
     <header class="hero">
+        
         <div class="hero-content">
             <h1>Discover Your Next Adventure</h1>
             <p>Find the perfect trek based on your experience level and preferences</p>
@@ -41,9 +15,11 @@
                 </button>
             </div>
         </div>
+
     </header>
     <div class="cta-section">
-        <button class="cta-btn">Explore Trekking Destinations</button>
+        <a href="{% url 'recommendations' %}">  <button class="cta-btn" oncl>Recommend Trekking Destinations</button></a>
+       
     </div>
     <!-- Features Section -->
     <section class="features">
@@ -107,31 +83,5 @@
     </section>
 
     <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4>About TrekGuide</h4>
-                <p>Your ultimate companion for finding and planning the perfect trekking adventure.</p>
-            </div>
-            <div class="footer-section">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Treks</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h4>Connect With Us</h4>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                </div>
-            </div>
-        </div>
-    </footer>
-</body>
-</html>
+  
+{% endblock %}
