@@ -1,41 +1,84 @@
 {% extends "base.html" %}
 {% block content %}
 
+</head>
+<body>
+    <div class="container">
+        <h1>Find Your Ideal Trek</h1>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <label for="cost">Enter Your Budget (in NPR):</label>
+            <input type="number" id="cost" name="cost" required><br>
 
-    <h1>Destination Recommendation System</h1>
-    <form method="post">
-        {% csrf_token %}
-        <label for="cost">Cost:</label>
-        <input type="number" name="cost" step="0.01" required>
-        <label for="time">Time (in days):</label>
-        <input type="number" name="time" required>
-        <label for="difficulty">Difficulty:</label>
-        <select name="difficulty" required>
-            <option value="easy">Easy</option>
-            <option value="moderate">Moderate</option>
-            <option value="hard">Hard</option>
-        </select>
-        <button type="submit">Get Recommendations</button>
-    </form>
+            <label for="time">Enter Available Time (in Days):</label>
+            <input type="number" id="time" name="time" required><br>
 
-    {% if recommendations %}
-    <div class="results">
-        <h2>Recommended Destinations</h2>
-        {% for destination in recommendations %}
-        <div class="destination">
-            <strong>{{ destination.Trek }}</strong><br>
-            Cost: {{ destination.Cost }}<br>
-            Time: {{ destination.Time }} days<br>
-            Difficulty: {{ destination.Difficulty }}<br>
+            <button type="submit">Get Recommendations</button>
+        </form>
+
+        <div id="results">
+            {% if recommendations %}
+                <h2>Recommended Treks:</h2>
+                <ul>
+                    {% for trek in recommendations %}
+                        <li id="w">
+                            <strong>{{ trek.Trek }}</strong><br>
+                            Cost: NPR {{ trek.Cost }}<br>
+                            Time: {{ trek.Time }} days<br>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No recommendations found. Please adjust your criteria and try again.</p>
+            {% endif %}
         </div>
-        {% endfor %}
     </div>
-    {% else %}
-    <div class="results">
-        <p>No recommendations yet. Fill out the form to see suggestions!</p>
-    </div>
-    {% endif %}
 
+    <style>
+        /* General Reset */
+ /* Container */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+#results {
+    margin-top: 30px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+#w{
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+strong {
+    font-size: 18px;
+    color: #007BFF;
+}
+
+/* No Recommendations Found */
+#results p {
+    text-align: center;
+    font-size: 16px;
+    color: #555;
+}
+    </style>
+
+   
 
      <!-- Popular Treks Section -->
      <section class="popular-treks">

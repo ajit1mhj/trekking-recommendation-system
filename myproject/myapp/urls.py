@@ -5,9 +5,12 @@ from . import views
 
 urlpatterns = [
    
-    path("home/", views.home,name="home"),
-    path("login/", views.login_view, name="login"),
-    path("signup/", views.signup,name="signup"),
-    path("recommendations/", views.recommendations,name="recommendations"),
-    # path("", views,name="home")
+    path('admin/', admin.site.urls),
+    path('', views.home, name='home'),
+    path('login/', views.login_view, name='login'),
+    path('logout/', views.Custom_logout, name='logout'),
+    path('signup/', views.signup, name='signup'),
+    path('profile/', views.profile, name='profile'),
+    path('profile/edit/', views.edit_profile, name='edit_profile'),
+    path('recommendations/', views.recommendations, name='recommendations'),
 ]
