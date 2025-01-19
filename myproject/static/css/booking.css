@@ -1,0 +1,39 @@
+/* Booking page styles */
+.booking-container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #2c3e50;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #3498db;
+}
+
+.booking-details p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 15px 0;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+}
+
+.booking-details strong {
+    color: #2c3e50;
+    display: inline-block;
+    width: 100px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .booking-container {
+        margin: 15px;
+        padding: 15px;
+    }
+} 

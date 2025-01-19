@@ -1,8 +1,25 @@
-{% include "header.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Trek Booking{% endblock %}</title>
+    {% load static %}
+    <!-- Make sure the path to your CSS files is correct -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style2.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    {% include 'header.html' %}
+    
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
 
-{% block content %}
-
-
-{% endblock  %}
-
-{% include "footer.html" %}
+    {% include 'footer.html' %}
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

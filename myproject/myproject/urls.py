@@ -31,6 +31,9 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('profile/edit/', views.edit_profile, name='edit_profile'),
     path('recommendations/', views.recommendations, name='recommendations'),
+    path('booking/', views.booking, name='booking'),
+    path('confirm_booking/', views.confirm_booking, name='confirm_booking'),
+
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

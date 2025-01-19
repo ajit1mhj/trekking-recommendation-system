@@ -8,14 +8,15 @@
         <form method="POST" action="">
             {% csrf_token %}
             <label for="cost">Enter Your Budget (in NPR):</label>
-            <input type="number" id="cost" name="cost" required><br>
-
+            <input type="number" id="cost" name="cost" min="60000" max="380000" required>
+            <small>Budget must be between 60,000 and 380,000 NPR.</small><br>
+        
             <label for="time">Enter Available Time (in Days):</label>
-            <input type="number" id="time" name="time" required><br>
-
+            <input type="number" id="time" name="time" min="5" max="27" required>
+            <small>Time must be between 5 and 27 days.</small><br>
+        
             <button type="submit">Get Recommendations</button>
         </form>
-
         <div id="results">
             {% if recommendations %}
                 <h2>Recommended Treks:</h2>
@@ -25,6 +26,22 @@
                             <strong>{{ trek.Trek }}</strong><br>
                             Cost: NPR {{ trek.Cost }}<br>
                             Time: {{ trek.Time }} days<br>
+                            Difficulty:{{trek.Difficulty}}<br>
+                            Max Altitude: {{trek.MaxAltitude}} <br>
+                            Best Travel Time: {{trek.BestTravelTime }} days<br>
+                            Accomodation: {{ trek.Accomodation }} <br>
+                           
+                            <form action="{% url 'booking' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="trek_name" value="{{ trek.Trek }}">
+                                <input type="hidden" name="cost" value="{{ trek.Cost }}">
+                                <input type="hidden" name="time" value="{{ trek.Time }}">
+                                <input type="hidden" name="trip-grade" value="{{ trek.Trip_Grade }}">
+                                <input type="hidden" name="max_altitude" value="{{ trek.Max_Altitude }}">
+                                <input type="hidden" name=" Best_Travel_Time " value="{{ trek.Best_Travel_Time  }}">
+                                <input type="hidden" name="Accomodation" value="{{ trek.Accomodation }}">
+                                <button type="submit">Book Now</button>
+                            </form>
                         </li>
                     {% endfor %}
                 </ul>
@@ -32,6 +49,7 @@
                 <p>No recommendations found. Please adjust your criteria and try again.</p>
             {% endif %}
         </div>
+        
     </div>
 
     <style>
@@ -85,7 +103,7 @@ strong {
         <h2>Popular Treks</h2>
         <div class="trek-grid">
             <div class="trek-card">
-                <img src="https://source.unsplash.com/800x600/?himalaya" alt="Trek 1">
+                <img src="../static/images/everest.jpg" alt="Trek 1">
                 <div class="trek-info">
                     <h3>Everest Base Camp</h3>
                     <p>Difficulty: Challenging</p>
@@ -94,7 +112,7 @@ strong {
                 </div>
             </div>
             <div class="trek-card">
-                <img src="https://source.unsplash.com/800x600/?mountains" alt="Trek 2">
+                <img src="../static/images/annapurna.jpg" alt="Trek 2">
                 <div class="trek-info">
                     <h3>Annapurna Circuit</h3>
                     <p>Difficulty: Moderate</p>
@@ -103,7 +121,7 @@ strong {
                 </div>
             </div>
             <div class="trek-card">
-                <img src="https://source.unsplash.com/800x600/?trek" alt="Trek 3">
+                <img src="../static/images/manaslu.jpg" alt="Trek 3">
                 <div class="trek-info">
                     <h3>Manaslu Circuit</h3>
                     <p>Difficulty: Challenging</p>

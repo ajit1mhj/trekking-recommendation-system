@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+    .booking-container {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 30px;
+        font-size: 28px;
+    }
+
+    .booking-details {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+    }
+
+    .booking-details p {
+        margin: 15px 0;
+        font-size: 16px;
+        color: #444;
+        display: flex;
+        align-items: center;
+    }
+
+    .booking-details strong {
+        min-width: 120px;
+        color: #333;
+        font-weight: 600;
+    }
+
+    .booking-form {
+        background-color: #f8f9fa;
+        padding: 25px;
+        border-radius: 8px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #333;
+        font-weight: 500;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    .form-group input:focus {
+        outline: none;
+        border-color: #4a90e2;
+        box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
+    }
+
+    .form-group input[readonly] {
+        background-color: #e9ecef;
+    }
+
+    .submit-btn {
+        width: 100%;
+        padding: 12px;
+        background-color: #4a90e2;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .submit-btn:hover {
+        background-color: #357abd;
+    }
+
+    @media (max-width: 768px) {
+        .booking-container {
+            margin: 20px;
+            padding: 20px;
+        }
+        
+        .booking-details strong {
+            min-width: 100px;
+        }
+    }
+</style>
+
+<div class="booking-container">
+    <br>
+    <br>
+    <h2>Booking Details</h2>
+    <div class="booking-details">
+        <p><strong>Trek:</strong> {{ trek_name }}</p>
+        <p><strong>Cost:</strong> NPR {{ cost }}</p>
+        <p><strong>Duration:</strong> {{ time }} days</p>
+    </div>
+
+    <form class="booking-form" action="{% url 'confirm_booking' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="trek_name" value="{{ trek_name }}">
+        <input type="hidden" name="cost" value="{{ cost }}">
+        <input type="hidden" name="duration" value="{{ time }}">
+        
+        <div class="form-group">
+            <label for="start_date">Select Start Date:</label>
+            <input type="date" id="start_date" name="start_date" required onchange="calculateEndDate()">
+        </div>
+
+        <div class="form-group">
+            <label for="end_date">End Date:</label>
+            <input type="text" id="end_date" name="end_date" readonly>
+        </div>
+
+        <button type="submit" class="submit-btn">Confirm Booking</button>
+    </form>
+</div>
+
+<script>
+    function calculateEndDate() {
+        const startDateInput = document.getElementById('start_date');
+        const endDateInput = document.getElementById('end_date');
+        const duration = parseInt('{{ time }}');
+
+        // Set minimum date to today
+        const today = new Date();
+        const formattedToday = today.toISOString().split('T')[0];
+        startDateInput.setAttribute('min', formattedToday);
+
+        // If selected date is before today, reset to today
+        if (startDateInput.value && new Date(startDateInput.value) < today) {
+            startDateInput.value = formattedToday;
+        }
+
+        if (startDateInput.value) {
+            const startDate = new Date(startDateInput.value);
+            const endDate = new Date(startDate);
+            endDate.setDate(startDate.getDate() + duration);
+            
+            // Format the date as YYYY-MM-DD
+            const formattedDate = endDate.toISOString().split('T')[0];
+            endDateInput.value = formattedDate;
+        }
+    }
+
+    // Add event listeners
+    const startDateInput = document.getElementById('start_date');
+    startDateInput.addEventListener('change', calculateEndDate);
+    // Run once on page load to set initial min date
+    calculateEndDate();
+</script>
+{% endblock %}

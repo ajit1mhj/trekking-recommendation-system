@@ -1,26 +1,157 @@
-<!-- templates/profile.html -->
+
 {% extends "base.html" %}
 {% block content %}
+<style>
+    .profile-container {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
 
+    h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 30px;
+        font-size: 32px;
+    }
 
-<!-- profile.html -->
+    .profile-info {
+        background-color: #f8f9fa;
+        padding: 25px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+    }
 
-    <h2>Welcome, {{ user.first_name }}!</h2>
+    .profile-img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        display: block;
+        margin: 0 auto 20px;
+        object-fit: cover;
+        border: 3px solid #4a90e2;
+    }
 
-    <p><strong>Full Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
-    <p><strong>Email:</strong> {{ user.email }}</p>
-    <p><strong>Bio:</strong> {{ profile.bio }}</p>
-    <p><strong>Location:</strong> {{ profile.location }}</p>
-    
-    <!-- Display profile picture if available -->
-    {% if profile.profile_picture %}
-        <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" width="150">
-    {% else %}
-        <p>No profile picture uploaded</p>
-    {% endif %}
+    .profile-info p {
+        margin: 15px 0;
+        font-size: 16px;
+        color: #444;
+    }
 
-    <a href="{% url 'edit_profile' %}">Edit Profile</a>
+    .profile-info strong {
+        min-width: 120px;
+        display: inline-block;
+        color: #333;
+    }
 
+    .btn-edit {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #4a90e2;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-top: 20px;
+        transition: background-color 0.3s;
+    }
+
+    .btn-edit:hover {
+        background-color: #357abd;
+    }
+
+    h2 {
+        color: #333;
+        margin: 30px 0 20px;
+        font-size: 24px;
+    }
+
+    .bookings-table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .bookings-table th, 
+    .bookings-table td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .bookings-table th {
+        background-color: #4a90e2;
+        color: white;
+        font-weight: 500;
+    }
+
+    .bookings-table tr:last-child td {
+        border-bottom: none;
+    }
+
+    .bookings-table tbody tr:hover {
+        background-color: #e9ecef;
+    }
+
+    @media (max-width: 768px) {
+        .profile-container {
+            margin: 20px;
+            padding: 20px;
+        }
+
+        .bookings-table {
+            display: block;
+            overflow-x: auto;
+        }
+    }
+</style>
+<br>
+<br>
+<div class="profile-container">
+    <h1>{{ user.username }}'s Profile</h1>
+    <div class="profile-info">
+        {% if user_profile.profile_picture %}
+        <img src="{{ user_profile.profile_picture.url }}" alt="Profile Picture" class="profile-img">
+        {% else %}
+        <img src="../static/images/default-profile.jpg"Default Profile Picture" class="profile-img">
+         {% endif %}
+        <p><strong>Full Name:</strong> {{ user_profile.full_name }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Location:</strong> {{ user_profile.location }}</p>
+        <p><strong>Bio:</strong> {{ user_profile.bio }}</p>
+        <a href="{% url 'edit_profile' %}" class="btn-edit">Edit Profile</a>
+    </div>
+
+    <h2>Your Bookings</h2>
+    <table class="bookings-table">
+        <thead>
+            <tr>
+                <th>Trek Name</th>
+                <th>Cost</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in user_bookings %}
+            <tr>
+                <td>{{ booking.trek_name }}</td>
+                <td>NPR {{ booking.cost }}</td>
+                <td>{{ booking.start_date }}</td>
+                <td>{{ booking.end_date }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">You have no bookings yet.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}
 
 
